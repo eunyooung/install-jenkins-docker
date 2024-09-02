@@ -1,0 +1,20 @@
+name: jenkins-agent1
+
+services:
+  jenkins-agent1:
+     image: myjenkins-ssh-agent-docker:alpine-jdk17
+     container_name: jenkins-agent1
+     restart: on-failure
+     ports:
+       - 22:22
+     networks:
+       - jenkins
+     environment:
+       - JENKINS_AGENT_SSH_PUBKEY=<ssh public 키>
+     volumes:
+       - /var/run/docker.sock:/var/run/docker.sock # 호스트 docker socket 공유
+
+networks:
+  jenkins:
+    external: true
+    name: jenkins

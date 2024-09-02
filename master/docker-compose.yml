@@ -1,0 +1,21 @@
+name: jenkins
+
+services:
+  jenkins:
+    image: myjenkins-blueocean:2.462.1-1
+    container_name: jenkins
+    restart: on-failure
+    networks:
+      - jenkins
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - /app/jenkins/master/jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  jenkins:
+    external: true
+    name: jenkins
+
